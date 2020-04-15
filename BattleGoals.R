@@ -3,6 +3,7 @@ library(shinyjs)
 library(shinythemes)
 library(tibble)
 library(dplyr)
+`%then%` <- shiny:::`%OR%`
 
 Draws <- function(Player, NumCards){
     Spots <- seq(Player,78,by=6)
@@ -18,11 +19,8 @@ Deck <- as.tibble(c("Streamliner", "Scrambler", "FastHealer", "Indigent", "Puris
 
 ui <- function(request) {
     fluidPage(theme = shinytheme("flatly"),
-        
         tags$head(includeScript("google-analytics.js")),
-        
         h1("Gloomhaven Battle Goals", align = "center"),
-        
         sidebarLayout(
             sidebarPanel(
                 numericInput("Seed", "Seed", 1, step=1),
@@ -33,8 +31,8 @@ ui <- function(request) {
                 bookmarkButton(label = "Invite Party", align = "center"),
                 actionButton("button", "Draw!", align = "center")
             ),
-            
             mainPanel(
+                textOutput("Error"),
                 hidden(
                     div(id='ShowDraw',
                         uiOutput("cards")
@@ -63,7 +61,16 @@ server <- function(input, output, session) {
         # to display properly.
         do.call(tagList, card_output_list)
     })
-
+    #Validate seed input and generate appropriate error message
+    ErrorMsg <- reactive({
+        validate(
+            need(is.numeric(input$Seed), "Please input a number.") %then%
+                need(input$Seed <= 2147483647 && input$Seed >= -2147483647, "Seed value must be between -2147483647 and 2147483647.")
+            )
+    })
+    output$Error <- renderPrint(ErrorMsg()) 
+    
+    
     # Call renderImage for each one. Cards are only actually generated when they
     # are visible on the web page.
     observeEvent(input$button, {
@@ -75,10 +82,10 @@ server <- function(input, output, session) {
             local({
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
-                output[[cardnum]] <- renderImage({
-                    validate(
-                        need(input$Player != "Select" , "Select player number.")
-                    )
+                output[[cardnum]] <- renderImage({validate(
+                    need(is.numeric(input$Seed), "") %then%
+                        need(input$Seed <= 2147483647 && input$Seed >= -2147483647, "")
+                )
                     filename <- normalizePath(file.path('/srv/shiny-server/apps/battle-goals',
                                                         paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
                     
