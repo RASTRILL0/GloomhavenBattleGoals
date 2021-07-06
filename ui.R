@@ -2,7 +2,6 @@ library(shinythemes)
 
 ui <- function(request) {
     fluidPage(theme = shinytheme("flatly"),
-        tags$head(includeScript("google-analytics.js")),
         h1("Gloomhaven Battle Goals", align = "center"),
         sidebarLayout(
             sidebarPanel(
