@@ -1,4 +1,8 @@
 library(shinythemes)
+library(shiny)
+library(shinyjs)
+library(tibble)
+library(dplyr)
 
 ui <- function(request) {
     fluidPage(theme = shinytheme("flatly"),
@@ -27,7 +31,7 @@ ui <- function(request) {
                 "Card scans from", tags$a(href="https://github.com/any2cards/gloomhaven", "any2cards/gloomhaven"), "and", tags$a(href="https://boardgamegeek.com/thread/2184131/satires-extended-battle-goals", "Satire's Extended Battle Goals."), br(),
                 "Use Discord to play?", tags$a(href="https://old.reddit.com/r/Gloomhaven/comments/fmpavk/if_anybody_else_is_struggling_with_secretly/fnhftv4/", "Try the Discord Bot created by nicholaskillin."), br(),
                 "Feedback can be submitted", tags$a(href="https://boardgamegeek.com/thread/2393488/battle-goal-card-application-intended-remote-play", "here."), br()
-            )
+        
         )
     )
 }
