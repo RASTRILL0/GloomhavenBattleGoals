@@ -201,5 +201,9 @@ server <- function(input, output, session) {
     })
 
     setBookmarkExclude(c("button", "cardclick1", "cardclick2", "cardclick3","cardclick4","cardclick5"))
-}
 
+    output$keep_alive <- renderText({
+      req(input$alive_count)
+      input$alive_count
+    })
+}
