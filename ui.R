@@ -1,8 +1,5 @@
 library(shinythemes)
-library(shiny)
 library(shinyjs)
-library(tibble)
-library(dplyr)
 
 ui <- function(request) {
     fluidPage(theme = shinytheme("flatly"),
