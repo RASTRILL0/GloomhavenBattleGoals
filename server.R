@@ -1,4 +1,8 @@
 library(shiny)
+library(shinyjs)
+library(shinythemes)
+library(tibble)
+library(dplyr)
 
 Draws <- function(Player, NumCards){
     Spots <- seq(Player,78,by=6)
