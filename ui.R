@@ -31,4 +31,3 @@ ui <- function(request) {
         
         )
     )
-}
