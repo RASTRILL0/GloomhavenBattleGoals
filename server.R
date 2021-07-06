@@ -60,7 +60,7 @@ server <- function(input, output, session) {
                     #%then%
                         need(input$Seed <= 2147483647 && input$Seed >= -2147483647, "")
                 )
-                    filename <- normalizePath(file.path('/battle-goals',
+                    filename <- normalizePath(file.path('/app/battle-goals',
                                                         paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
                     
                     # Return a list containing the filename and alt text
@@ -73,7 +73,7 @@ server <- function(input, output, session) {
         my_i <- 1
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/battle-goals',
+            filename <- normalizePath(file.path('/app/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -82,7 +82,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -93,7 +93,7 @@ server <- function(input, output, session) {
         my_i <- 2
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/battle-goals',
+            filename <- normalizePath(file.path('/app/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -102,7 +102,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -113,7 +113,7 @@ server <- function(input, output, session) {
         my_i <- 3
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/battle-goals',
+            filename <- normalizePath(file.path('/app/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -122,7 +122,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -133,7 +133,7 @@ server <- function(input, output, session) {
         my_i <- 4
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/battle-goals',
+            filename <- normalizePath(file.path('/app/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -142,7 +142,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -153,7 +153,7 @@ server <- function(input, output, session) {
         my_i <- 5
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/battle-goals',
+            filename <- normalizePath(file.path('/app/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -162,7 +162,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
