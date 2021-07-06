@@ -29,5 +29,7 @@ ui <- function(request) {
                 "Use Discord to play?", tags$a(href="https://old.reddit.com/r/Gloomhaven/comments/fmpavk/if_anybody_else_is_struggling_with_secretly/fnhftv4/", "Try the Discord Bot created by nicholaskillin."), br(),
                 "Feedback can be submitted", tags$a(href="https://boardgamegeek.com/thread/2393488/battle-goal-card-application-intended-remote-play", "here."), br()
         
+            )
         )
     )
+}
