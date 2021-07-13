@@ -1,6 +1,9 @@
 library(shiny)
+library(shinyjs)
+library(shinythemes)
 library(tibble)
 library(dplyr)
+#`%then%` <- shiny:::`%OR%`
 
 Draws <- function(Player, NumCards){
     Spots <- seq(Player,78,by=6)
@@ -18,6 +21,39 @@ Deck <- as_tibble(c("Streamliner", "Scrambler", "FastHealer", "Indigent", "Puris
         "Streamliner","Indigent","Purist","Neutralizer","Hunter","Dynamo","Professional","Explorer","Executioner","Protector","Hoarder","Zealot","Layabout","Plunderer","Aggressor","Workhorse"
         )
         )
+
+ui <- function(request) {
+    fluidPage(theme = shinytheme("flatly"),
+#        tags$head(includeScript("google-analytics.js")),
+        h1("Gloomhaven Battle Goals", align = "center"),
+        sidebarLayout(
+            sidebarPanel(
+                numericInput("Seed", "Seed", 1, step=1),
+                helpText("Each player in your party must enter the same seed number. Enter a new seed number for each scenario."),
+                radioButtons("Game", "Which game are you playing:", choices = c("Gloomhaven", "Jaws of the Lion","Gloomhaven with Jaws of the Lions goals"), selected = "Gloomhaven"),
+                checkboxInput("Extended", "Include Satire's Extended Battle Goals", value = FALSE),
+                sliderInput("Player","What player are you (default 1-4):", min = 1, max = 6, value = 1, ticks = FALSE ),
+                sliderInput("NumCards", "Number of Cards (default 2):", min = 1, max = 4, value = 2, ticks = FALSE),
+                bookmarkButton(label = "Invite Party", align = "center"),
+                actionButton("button", "Draw!", align = "center")
+            ),
+            mainPanel(
+                textOutput("Error"),
+                hidden(
+                    div(id='ShowDraw',
+                        uiOutput("cards")
+                    )
+                ),
+                br(),
+                span("New:", style="color:red"), "Updated with Jaws of the Lion battle goals.",br(),
+                "Gloomhaven and all related properties and images are owned by", tags$a(href="http://www.cephalofair.com", "Cephalofair Games."), align = "center", br(),
+                "Card scans from", tags$a(href="https://github.com/any2cards/gloomhaven", "any2cards/gloomhaven"), "and", tags$a(href="https://boardgamegeek.com/thread/2184131/satires-extended-battle-goals", "Satire's Extended Battle Goals."), br(),
+                "Use Discord to play?", tags$a(href="https://old.reddit.com/r/Gloomhaven/comments/fmpavk/if_anybody_else_is_struggling_with_secretly/fnhftv4/", "Try the Discord Bot created by nicholaskillin."), br(),
+                "Feedback can be submitted", tags$a(href="https://boardgamegeek.com/thread/2393488/battle-goal-card-application-intended-remote-play", "here."), br()
+            )
+        )
+    )
+}
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
@@ -60,7 +96,7 @@ server <- function(input, output, session) {
                     #%then%
                         need(input$Seed <= 2147483647 && input$Seed >= -2147483647, "")
                 )
-                    filename <- normalizePath(file.path('/app/battle-goals',
+                    filename <- normalizePath(file.path('/srv/shiny-server/battle-goals',
                                                         paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
                     
                     # Return a list containing the filename and alt text
@@ -73,7 +109,7 @@ server <- function(input, output, session) {
         my_i <- 1
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/app/battle-goals',
+            filename <- normalizePath(file.path('/srv/shiny-server/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -82,7 +118,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/srv/shiny-server/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -93,7 +129,7 @@ server <- function(input, output, session) {
         my_i <- 2
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/app/battle-goals',
+            filename <- normalizePath(file.path('/srv/shiny-server/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -102,7 +138,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/srv/shiny-server/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -113,7 +149,7 @@ server <- function(input, output, session) {
         my_i <- 3
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/app/battle-goals',
+            filename <- normalizePath(file.path('/srv/shiny-server/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -122,7 +158,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/srv/shiny-server/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -133,7 +169,7 @@ server <- function(input, output, session) {
         my_i <- 4
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/app/battle-goals',
+            filename <- normalizePath(file.path('/srv/shiny-server/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -142,7 +178,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/srv/shiny-server/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -153,7 +189,7 @@ server <- function(input, output, session) {
         my_i <- 5
         cardnum <- paste("card", my_i, sep="")
         output[[cardnum]] <- renderImage({
-            filename <- normalizePath(file.path('/app/battle-goals',
+            filename <- normalizePath(file.path('/srv/shiny-server/battle-goals',
                                                 paste(tolower(DrawnCards()[my_i,1]), '.png', sep='')))
             list(src = filename)
         }, deleteFile = FALSE)
@@ -162,7 +198,7 @@ server <- function(input, output, session) {
                 my_i <- i
                 cardnum <- paste("card", my_i, sep="")
                 output[[cardnum]] <- renderImage({
-                    filename <- normalizePath(file.path('/app/battle-goals/battlegoal-back.png'))
+                    filename <- normalizePath(file.path('/srv/shiny-server/battle-goals/battlegoal-back.png'))
                     # Return a list containing the filename and alt text
                     list(src = filename)
                 }, deleteFile = FALSE)
@@ -201,9 +237,7 @@ server <- function(input, output, session) {
     })
 
     setBookmarkExclude(c("button", "cardclick1", "cardclick2", "cardclick3","cardclick4","cardclick5"))
-
-    output$keepAlive <- renderText({
-      req(input$count)
-      paste("keep alive ", input$count)
-    })
 }
+
+# Run the application 
+shinyApp(ui = ui, server = server, enableBookmarking = 'url')
